@@ -35,29 +35,12 @@ window.findNRooksSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = 0;
+  var solutionCount = [0];
   var board = new Board({n: n});
-
-  var findNCount = function(row, test) {
-    var col;
-    // base base: we've reached the last row of the board and have no conflict
-    if (row === n) {
-      solutionCount++;
-      return;
-    } 
-
-    //recursive case: place a piece on a given row, check and recurse
-    for (col = 0; col < n; col++){
-      board.togglePiece(row, col);
-      if (!board[test]()) findNCount(row + 1, test);
-      board.togglePiece(row, col);
-    } 
-  }
-
-  findNCount(0, "hasAnyRooksConflicts");
+  board.findNSolutions(0, "hasAnyRooksConflicts", solutionCount);
 
   // console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
-  return solutionCount;
+  return solutionCount[0];
 };
 
 
@@ -76,27 +59,10 @@ window.findNQueensSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n queens placed such that none of them can attack each other
 window.countNQueensSolutions = function(n) {
-  var solutionCount = 0;
+  var solutionCount = [0];
   var board = new Board({n: n});
-
-  var findNCount = function(row, test) {
-    var col;
-    // base base: we've reached the last row of the board and have no conflict
-    if (row === n) {
-      solutionCount++;
-      return;
-    } 
-
-    //recursive case: place a piece on a given row, check and recurse
-    for (col = 0; col < n; col++){
-      board.togglePiece(row, col);
-      if (!board[test]()) findNCount(row + 1, test);
-      board.togglePiece(row, col);
-    } 
-  }
-
-  findNCount(0, "hasAnyQueensConflicts");
+  board.findNSolutions(0, "hasAnyQueensConflicts", solutionCount);
 
   // console.log('Number of solutions for ' + n + ' queens:', solutionCount);
-  return solutionCount;
+  return solutionCount[0];
 };

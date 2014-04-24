@@ -226,14 +226,14 @@
       var col;
       // base base: we've reached the last row of the board and have no conflict
       if (row === this.attributes.n) {
-        if (arguments[2]) arguments[2]++;
+        if (arguments[2]) arguments[2][0]++;
         return;
       }
 
       //recursive case: place a piece on a given row, check and recurse
       for (col = 0; col < this.attributes.n; col++){
-        this.togglePiece(row, col, arguments[2]);
-        if (!this[test]()) this.findNSolutions(row + 1, test);
+        this.togglePiece(row, col);
+        if (!this[test]()) this.findNSolutions(row + 1, test, arguments[2]);
         this.togglePiece(row, col);
       }
     }
