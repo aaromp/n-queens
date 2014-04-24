@@ -220,6 +220,22 @@
         }
       }
       return false;
+    },
+
+    findNSolutions: function(row, test) {
+      var col;
+      // base base: we've reached the last row of the board and have no conflict
+      if (row === this.attributes.n) {
+        if (arguments[2]) arguments[2]++;
+        return;
+      }
+
+      //recursive case: place a piece on a given row, check and recurse
+      for (col = 0; col < this.attributes.n; col++){
+        this.togglePiece(row, col, arguments[2]);
+        if (!this[test]()) this.findNSolutions(row + 1, test);
+        this.togglePiece(row, col);
+      }
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/

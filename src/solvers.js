@@ -21,60 +21,13 @@
 //    recurse above steps on next row
 //  otherwise, break recursive dive and try item on next column
 
-// window.findNSolution = function(board, row, test, n) {
-// 	var col;
-//   // base base: we've reached the last row of the board and have no conflict
-//   if (row === n) return;
-
-//   //recursive case: place a piece on a given row, check and recurse
-//   for (col = 0; col < n; col++){
-//     board.togglePiece(row, col);
-//     if (!board[test]()) findNSolution(board, row + 1);
-//     board.togglePiece(row, col);
-//   }
-// }
-
-
-
-
-
-// window.findNCount = function(board, row, test, n, count) {
-//   var col;
-//   // base base: we've reached the last row of the board and have no conflict
-//   if (row === n) {
-//     count++;
-//     console.log(count);
-//     return;
-//   } 
-
-//   //recursive case: place a piece on a given row, check and recurse
-//   for (col = 0; col < n; col++){
-//     board.togglePiece(row, col);
-//     if (!board[test]()) findNCount(board, row + 1, test, n, count);
-//     board.togglePiece(row, col);
-//   }
-// }
-
 window.findNRooksSolution = function(n) {
-  var board = new Board({n: n});
+  var board, solution;
+  board = new Board({n: n});
+  board.findNSolutions(0, "hasAnyRooksConflicts");
+  solution = board.rows();
 
-  var findNSolution = function(row, test) {
-    var col;
-    // base base: we've reached the last row of the board and have no conflict
-    if (row === n) return;
-
-    //recursive case: place a piece on a given row, check and recurse
-    for (col = 0; col < n; col++){
-      board.togglePiece(row, col);
-      if (!board[test]()) findNSolution(row + 1, test);
-      board.togglePiece(row, col);
-    }
-  }
-
-  findNSolution(0, "hasAnyRooksConflicts");
-  var solution = board.rows();
-
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
+  // console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
 };
 
@@ -103,7 +56,7 @@ window.countNRooksSolutions = function(n) {
 
   findNCount(0, "hasAnyRooksConflicts");
 
-  console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
+  // console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
 };
 
@@ -111,25 +64,12 @@ window.countNRooksSolutions = function(n) {
 
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n queens placed such that none of them can attack each other
 window.findNQueensSolution = function(n) {
-  var board = new Board({n: n});
+  var board, solution;
+  board = new Board({n: n});
+  board.findNSolutions(0, "hasAnyQueensConflicts");
+  solution = board.rows();
 
-  var findNSolution = function(row, test) {
-    var col;
-    // base base: we've reached the last row of the board and have no conflict
-    if (row === n) return;
-
-    //recursive case: place a piece on a given row, check and recurse
-    for (col = 0; col < n; col++){
-      board.togglePiece(row, col);
-      if (!board[test]()) findNSolution(row + 1, test);
-      board.togglePiece(row, col);
-    }
-  }
-
-  findNSolution(0, "hasAnyQueensConflicts");
-  var solution = board.rows();
-
-  console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
+  // console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
   return solution;
 };
 
@@ -157,6 +97,6 @@ window.countNQueensSolutions = function(n) {
 
   findNCount(0, "hasAnyQueensConflicts");
 
-  console.log('Number of solutions for ' + n + ' queens:', solutionCount);
+  // console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };
